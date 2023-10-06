@@ -128,6 +128,9 @@ namespace PurplePen
             // Auto rotate
             autoRotateCheckBox.Checked = settings.AutoRotate;
 
+            // Image quality
+            imageQualityUpDown.Value = settings.Quality;
+
             // Color model.
             if (settings.ColorModel == ColorModel.CMYK)
                 comboBoxColorModel.SelectedIndex = 1;
@@ -183,6 +186,9 @@ namespace PurplePen
             // Auto rotate
             settings.AutoRotate = autoRotateCheckBox.Checked;
 
+            // Image quality
+            settings.Quality = (int)imageQualityUpDown.Value;
+
             // Color model.
             settings.ColorModel = (comboBoxColorModel.SelectedIndex == 1) ? ColorModel.CMYK : ColorModel.RGB;
 
@@ -217,5 +223,6 @@ namespace PurplePen
         {
 
         }
+
     }
 }

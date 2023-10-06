@@ -66,7 +66,7 @@ namespace PurplePen
 
         // Create a bitmap file of the mapDisplay supplied at construction.
         // If mapperForWorldFile is not null and real world coords are defined, also create a world file.
-        public void CreateBitmap(string fileName, RectangleF rect, ImageFormat imageFormat, float dpi, CoordinateMapper mapperForWorldFile, bool autoRotate=false)
+        public void CreateBitmap(string fileName, RectangleF rect, ImageFormat imageFormat, float dpi, CoordinateMapper mapperForWorldFile, int quality = 80, bool autoRotate=false)
         {
             float bitmapWidth, bitmapHeight; // size of the bitmap in pixels.
             int pixelWidth, pixelHeight; // bitmapWidth/Height, rounded up to integer.
@@ -89,15 +89,7 @@ namespace PurplePen
             {
                 bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
             }
-
-            // JPEG and GIF have special code paths because the default Save method isn't
-            // really good enough.
-            if (imageFormat == ImageFormat.Jpeg)
-                BitmapUtil.SaveJpeg(bitmap, fileName, 80);
-            else if (imageFormat == ImageFormat.Gif)
-                BitmapUtil.SaveGif(bitmap, fileName);
-            else
-                bitmap.Save(fileName, imageFormat);
+            BitmapUtil.SaveBitmap(bitmap, fileName, imageFormat, quality);
 
             bitmap.Dispose();
 
