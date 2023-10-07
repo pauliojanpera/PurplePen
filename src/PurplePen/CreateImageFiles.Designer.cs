@@ -79,6 +79,8 @@ namespace PurplePen
             this.comboBoxWorldFile = new System.Windows.Forms.ComboBox();
             this.labelColorModel = new System.Windows.Forms.Label();
             this.comboBoxColorModel = new System.Windows.Forms.ComboBox();
+            this.labelAutoRotate = new System.Windows.Forms.Label();
+            this.autoRotateCheckBox = new System.Windows.Forms.CheckBox();
             this.folderGroupBox = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.selectOtherDirectoryButton = new System.Windows.Forms.Button();
@@ -148,6 +150,8 @@ namespace PurplePen
             this.tableLayoutPanel1.Controls.Add(this.comboBoxWorldFile, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.labelColorModel, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.comboBoxColorModel, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.labelAutoRotate, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.autoRotateCheckBox, 1, 5);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // filenamePrefixTextBox
@@ -224,6 +228,17 @@ namespace PurplePen
             resources.GetString("comboBoxColorModel.Items"),
             resources.GetString("comboBoxColorModel.Items1")});
             this.comboBoxColorModel.Name = "comboBoxColorModel";
+            // 
+            // labelAutoRotate
+            // 
+            resources.ApplyResources(this.labelAutoRotate, "labelAutoRotate");
+            this.labelAutoRotate.Name = "labelAutoRotate";
+            // 
+            // autoRotateCheckBox
+            // 
+            resources.ApplyResources(this.autoRotateCheckBox, "autoRotateCheckBox");
+            this.autoRotateCheckBox.Name = "autoRotateCheckBox";
+            this.autoRotateCheckBox.UseVisualStyleBackColor = true;
             // 
             // folderGroupBox
             // 
@@ -328,5 +343,7 @@ namespace PurplePen
         private System.Windows.Forms.RadioButton otherDirectory;
         private System.Windows.Forms.TextBox otherDirectoryTextBox;
         private System.Windows.Forms.Button selectOtherDirectoryButton;
+        private System.Windows.Forms.Label labelAutoRotate;
+        private System.Windows.Forms.CheckBox autoRotateCheckBox;
     }
 }
