@@ -219,6 +219,7 @@ namespace PurplePen
             this.changeLineAppearanceMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.rotateMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.stretchMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.legFlaggingMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.noFlaggingMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.entireFlaggingMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -1407,6 +1408,7 @@ namespace PurplePen
             this.changeLineAppearanceMenu,
             this.rotateMenu,
             this.stretchMenu,
+            this.splitToolStripMenuItem,
             this.legFlaggingMenu,
             this.toolStripSeparator19,
             this.changeDisplayedCoursesMenu});
@@ -1482,6 +1484,12 @@ namespace PurplePen
             this.stretchMenu.Name = "stretchMenu";
             resources.ApplyResources(this.stretchMenu, "stretchMenu");
             this.stretchMenu.Click += new System.EventHandler(this.stretchMenu_Click);
+            // 
+            // splitToolStripMenuItem
+            // 
+            this.splitToolStripMenuItem.Name = "splitToolStripMenuItem";
+            resources.ApplyResources(this.splitToolStripMenuItem, "splitToolStripMenuItem");
+            this.splitToolStripMenuItem.Click += new System.EventHandler(this.splitToolStripMenuItem_Click);
             // 
             // legFlaggingMenu
             // 
@@ -2387,5 +2395,6 @@ namespace PurplePen
         private System.Windows.Forms.ToolStripMenuItem missingTranslationsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem constructionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addConstructionMenu;
+        private System.Windows.Forms.ToolStripMenuItem splitToolStripMenuItem;
     }
 }

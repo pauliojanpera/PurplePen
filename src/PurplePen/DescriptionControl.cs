@@ -557,6 +557,10 @@ namespace PurplePen
                     popupKind = ChangeKind.TextLine;
                     break;
 
+                case HitTestKind.CuttingLine:
+                    // TODO: Maybe remove the line. Ignore for now.
+                    break;
+
                 default: Debug.Fail("bad hit test kind"); break;
             }
         }
