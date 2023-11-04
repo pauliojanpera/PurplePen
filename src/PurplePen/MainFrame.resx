@@ -217,7 +217,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonDescriptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 246</value>
+    <value>3, 251</value>
   </data>
   <data name="radioButtonDescriptions.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 0, 3</value>
@@ -262,7 +262,7 @@
     <value>NoControl</value>
   </data>
   <data name="radioButtonTopology.Location" type="System.Drawing.Point, System.Drawing">
-    <value>128, 246</value>
+    <value>128, 251</value>
   </data>
   <data name="radioButtonTopology.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 3, 3, 3</value>
@@ -298,7 +298,7 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0
         dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABVTeXN0ZW0uRHJh
-        d2luZy5Qb2ludEYCAAAAAXgBeQAACwsCAAAAAAAYuAAAl7kL
+        d2luZy5Qb2ludEYCAAAAAXgBeQAACwsCAAAAAAAYuAAAqLkL
 </value>
   </data>
   <data name="mapViewerTopology.Location" type="System.Drawing.Point, System.Drawing">
@@ -308,7 +308,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="mapViewerTopology.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 241</value>
+    <value>239, 246</value>
   </data>
   <data name="mapViewerTopology.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -320,15 +320,15 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0
         dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABlTeXN0ZW0uRHJh
-        d2luZy5SZWN0YW5nbGVGBAAAAAF4AXkFd2lkdGgGaGVpZ2h0AAAAAAsLCwsCAAAAI/H8wYoP/8EQ8XxC
-        8A5/Qgs=
+        d2luZy5SZWN0YW5nbGVGBAAAAAF4AXkFd2lkdGgGaGVpZ2h0AAAAAAsLCwsCAAAAI/H8wSUtAsIQ8XxC
+        ziyCQgs=
 </value>
   </data>
   <data name="&gt;&gt;mapViewerTopology.Name" xml:space="preserve">
     <value>mapViewerTopology</value>
   </data>
   <data name="&gt;&gt;mapViewerTopology.Type" xml:space="preserve">
-    <value>PurplePen.MapView.MapViewer, PurplePen, Version=3.5.2.500, Culture=neutral, PublicKeyToken=null</value>
+    <value>PurplePen.MapView.MapViewer, PurplePen, Version=3.5.3.500, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mapViewerTopology.Parent" xml:space="preserve">
     <value>panelTopology</value>
@@ -346,7 +346,7 @@
     <value>239, 0</value>
   </data>
   <data name="topologyScrollBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>17, 241</value>
+    <value>17, 246</value>
   </data>
   <data name="topologyScrollBar.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -370,7 +370,7 @@
     <value>0, 0</value>
   </data>
   <data name="panelTopology.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 243</value>
+    <value>256, 248</value>
   </data>
   <data name="panelTopology.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -406,7 +406,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="descriptionControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 243</value>
+    <value>256, 248</value>
   </data>
   <data name="descriptionControl.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -415,7 +415,7 @@
     <value>descriptionControl</value>
   </data>
   <data name="&gt;&gt;descriptionControl.Type" xml:space="preserve">
-    <value>PurplePen.DescriptionControl, PurplePen, Version=3.5.2.500, Culture=neutral, PublicKeyToken=null</value>
+    <value>PurplePen.DescriptionControl, PurplePen, Version=3.5.3.500, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;descriptionControl.Parent" xml:space="preserve">
     <value>panelDescriptionAndTopology</value>
@@ -433,7 +433,7 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="panelDescriptionAndTopology.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 243</value>
+    <value>256, 248</value>
   </data>
   <data name="panelDescriptionAndTopology.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -460,7 +460,7 @@
     <value>2</value>
   </data>
   <data name="leftColumnPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 272</value>
+    <value>256, 277</value>
   </data>
   <data name="leftColumnPanel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -508,7 +508,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="selectionPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 96</value>
+    <value>256, 91</value>
   </data>
   <data name="selectionPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -544,7 +544,7 @@
     <value>256, 371</value>
   </data>
   <data name="splitDescription.SplitterDistance" type="System.Int32, mscorlib">
-    <value>272</value>
+    <value>277</value>
   </data>
   <data name="splitDescription.SplitterWidth" type="System.Int32, mscorlib">
     <value>3</value>
@@ -580,7 +580,7 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0
         dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABVTeXN0ZW0uRHJh
-        d2luZy5Qb2ludEYCAAAAAXgBeQAACwsCAAAAAAAYuQAA1LkL
+        d2luZy5Qb2ludEYCAAAAAXgBeQAACwsCAAAAAAAYuQAA8rkL
 </value>
   </data>
   <data name="mapViewer.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -602,7 +602,7 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0
         dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EFAQAAABlTeXN0ZW0uRHJh
-        d2luZy5SZWN0YW5nbGVGBAAAAAF4AXkFd2lkdGgGaGVpZ2h0AAAAAAsLCwsCAAAAAaezwjvdKcLupjND
+        d2luZy5SZWN0YW5nbGVGBAAAAAF4AXkFd2lkdGgGaGVpZ2h0AAAAAAsLCwsCAAAAAaezwkrdKcLupjND
         ztypQgs=
 </value>
   </data>
@@ -610,7 +610,7 @@
     <value>mapViewer</value>
   </data>
   <data name="&gt;&gt;mapViewer.Type" xml:space="preserve">
-    <value>PurplePen.MapView.MapViewer, PurplePen, Version=3.5.2.500, Culture=neutral, PublicKeyToken=null</value>
+    <value>PurplePen.MapView.MapViewer, PurplePen, Version=3.5.3.500, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mapViewer.Parent" xml:space="preserve">
     <value>splitContainer.Panel2</value>
@@ -694,7 +694,7 @@
     <value>coursePartBanner</value>
   </data>
   <data name="&gt;&gt;coursePartBanner.Type" xml:space="preserve">
-    <value>PurplePen.CoursePartBanner, PurplePen, Version=3.5.2.500, Culture=neutral, PublicKeyToken=null</value>
+    <value>PurplePen.CoursePartBanner, PurplePen, Version=3.5.3.500, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;coursePartBanner.Parent" xml:space="preserve">
     <value>splitContainer.Panel2</value>
@@ -1551,6 +1551,12 @@
   <data name="stretchMenu.Text" xml:space="preserve">
     <value>&amp;Stretch</value>
   </data>
+  <data name="splitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>223, 22</value>
+  </data>
+  <data name="splitToolStripMenuItem.Text" xml:space="preserve">
+    <value>S&amp;plit</value>
+  </data>
   <data name="noFlaggingMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
   </data>
@@ -1967,13 +1973,13 @@
   <data name="addControlToolStripButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFfSURBVDhPjZLPSgJhFMU/R8GoRb2AtAsEa+FOIXqTnqBe
-        QPAFeoD+QG1qIS7a9ESCRbQQXIjgpE6/M54Bh/FPBw7fveeee+98MxO2IQlJZRmWNZG4bHk/aGgtwuKd
-        pnEc4qU5QutRa9pWBA0RpjvMc+JEJP6EX2t5zJCuW/JQs00L4keMdfJIJD5He6WWPhF5x20rILQozNVM
-        fG05BwaVqN14yYy44VK6XXdOOJ8sbYSG4Onb+5KJFTiWyNR6Ku4Anra8PMUwE051L/hNIUrFHcBfxTuB
-        etknEmoe8POfAXgO8E7hL/GxhDLJiFNXuLBvK/BcyUvPwFL6EnsSOd84S5YLoKZ/5cPeB8vp1CYTY6hv
-        rE9VGKJmah0145sSn7m0AkJXAzy9T96GVfMy2+wlt27Lg0IHw0xGm/W2J2u5Nm9uzoChwbZnzEOoa83g
-        AO2eWv6x94GGIzYfOt2AEP4AKtlRAvskvEQAAAAASUVORK5CYII=
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFlSURBVDhPjZLNSsNQEIVv00JFF/oCxZ1QqC66a0F8E59A
+        XyDQF/AB/AHd6KJ04cYnElTEhdBFa0k0id+5nQuGpK0Hhsw9c85M5iZuFQpXtHKXdxTkTaM3A8Mgc9kj
+        punczXPFwi0+4cbU+iarAkOE6ALDD3mhSF36SryFM7WUJiOzlCGziTLya4RdzpGC/BDuPrwR59hsS0AM
+        NFlm8lOjS6BRg9qZDUnIe1by07VzwfPGqFqoCZqJae8C2SKmIuna9eQaoBlKy928BGJfeyUueacQeXIN
+        0LfRz7Qy+j0RHWvw8Z8GaLbQfxHf5LsimvrOPLXCkelWAs2JtKzwbJS/xLFIng88G0ZXQE3/ypNpr4z2
+        Xfu8UqpVyPWpKk1kphbLrBXID6y0BMRIDaz7hPOQaFsch8k25NxsZVCIESQSmli3Pftz1uR6cwCCHtNu
+        9Z0xaK1EFwZ3Sa382puAYYfJ23asgXO/7kRP5Jvgyu8AAAAASUVORK5CYII=
 </value>
   </data>
   <data name="addControlToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
@@ -2054,7 +2060,7 @@
   <data name="mapExchangeControlToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAAAWVJREFUOE910ksrRkEYwPHXvVhgZyM7pbCws/AVSPkUot6FlYi1D0CKDUUWNj6B
+        vAAADrwBlbxySQAAAWVJREFUOE910ksrRkEYwPHXvVhgZyM7pbCws/AVSPkUot6FlYi1D0CKDUUWNj6B
         haU1spBcklAWUq7H/z/NmUaOnn6dmXOeeeZyplb8H83ojZrCm4rImilGsY9nfEdP2MUIfkXWLBqxgi8U
         0Q1us/47FpEia4bBZaKO0Q0LD2EL5YrmESI+wrI/4exXsICJ95hBCxpi229vGEQq4J79sI4lOPgyPnWK
         CVhkD+ZuIhTwtD0wXw6gLOBzEmexr0PMwdxrhAJ98OMd3G9ewHD5s3iAA0tuucsE/7MD3G9VAVc4Db/n
@@ -2109,10 +2115,10 @@
   <data name="addVariationToolStripButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADDSURBVDhPpVMxDsIwELstA0+Ajmz8r79A9INMzGwgtVUD
-        djBRCUlThKWTzj7fJamuloM37yabTr31VwbyjprKdbAZDQ/EDtEwp6ZyHTyVzaK8UUNNtI6/B+jN6RM6
-        letAgxttPOPUO+I22HChpnIdMB94qih5zFeBDYhWNGD1EBi3OfMvA/jBjqIfyA6BGLaORTUz36scAW2T
-        +F7bORMXt67oe4vykYeiaETRVywkKPr0lvRqX1tX9CFJP2L21837vHsCCHkTydKcsjMAAAAASUVORK5C
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADDSURBVDhPpVMxDsIwELstA0+Ajmz8j18g+kEmZqZCpVYN
+        2MFEJSSkCEsnnX2+S1JdLQdv3k02HXvrLwzkLTWV62AzGu6IDaJhTk3lOngqm0V5o4aaaB1/D9Cb0ye0
+        KteBBjfaeOqsuyGugw1nairXAfOOp4qSx3wR2IDYiwYsHgLjOmf+ZQA/2EH0DdkhEMPWsahm5luVI6Ct
+        Et9zO2fi160r+l6ifOShKBpR9BULCYo+vSW92sfWFX1I0o+Y/XXzPu8efrYTnb69u88AAAAASUVORK5C
         YII=
 </value>
   </data>
@@ -2410,12 +2416,12 @@
   <data name="specialItemToolStripMenu.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEHSURBVDhPtZGxSgNBFEUfJAuLkCKFlaRLoeQrrCI2KfyF
-        pNouRUgt/oK9P6BYhBSCP2Av2Nr4B1rszu7mvHARcRedLXLhMTP3vXN3JrGDqLJqQC1LKx+p59rqO84z
-        tf8Wg2e55e9A9e8i7J61p9GmaPYLK958mPWVsDH7hHVBaOU++0zjTdGc+pAGL2TvFSy8uM8ttrKaAjrn
-        S0G3+L4q+yP8DwU8yG4XIccMpjo6nAJtHPZn0L9U638JfvoBr9SKE/Ct4AA8lx0nwATwywMIupYdL8Ch
-        w6pT2d0EuObrNzp2F++eURlBiax4AU78l/cneIjseAGNCPjU33clu5sAT/wmOrbIbAdsmsptmpbuBwAA
-        AABJRU5ErkJggg==
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEJSURBVDhPtZGxagJBFEUfxIUlYJEilaRLEfErrCI2W+QX
+        ksouhaSW/IJ9fkBJEVIE/AH7gK1N/mAF3XXX88JFgitxtvDCY2bue+fujNpZVFjRpJ63tn2nZqWVb5wT
+        tf8Xg+2NbZZA5WERNmG90GhVNBuZZQsfZv0m7JZ9xPqUWlq4z36g8apo3vuQBnuyf5VbPnefW3zKqgqo
+        y5dy3WJ/VfaXa1v/KGAq+7gIuWYw1tHhGOjDYX8G/b5apyX46w88VCtMwGPBOfCj7DABRoArDyBoJDtc
+        gFcOq+5k1xPgC19/1bG+eHdCDQiKZIULsOO/vD/BQ2SHC+iGgFR/34PsegJs+U10PCKzHc5byhFDzV8I
+        AAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="specialItemToolStripMenu.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
@@ -3496,6 +3502,12 @@
   <data name="&gt;&gt;stretchMenu.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;splitToolStripMenuItem.Name" xml:space="preserve">
+    <value>splitToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;splitToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;legFlaggingMenu.Name" xml:space="preserve">
     <value>legFlaggingMenu</value>
   </data>
@@ -3986,7 +3998,7 @@
     <value>zoomTracker</value>
   </data>
   <data name="&gt;&gt;zoomTracker.Type" xml:space="preserve">
-    <value>PurplePen.ToolStripTrackBar, PurplePen, Version=3.5.2.500, Culture=neutral, PublicKeyToken=null</value>
+    <value>PurplePen.ToolStripTrackBar, PurplePen, Version=3.5.3.500, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;locationDisplay.Name" xml:space="preserve">
     <value>locationDisplay</value>
@@ -4022,6 +4034,6 @@
     <value>MainFrame</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>PurplePen.DpiFixedForm, PurplePen, Version=3.5.2.500, Culture=neutral, PublicKeyToken=null</value>
+    <value>PurplePen.DpiFixedForm, PurplePen, Version=3.5.3.500, Culture=neutral, PublicKeyToken=null</value>
   </data>
 </root>
