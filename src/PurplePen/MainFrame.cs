@@ -713,6 +713,7 @@ namespace PurplePen
             UpdateMenuItem(addTextLineMenu, controller.CanAddTextLine());
             UpdateMenuItem(mapFlipMenuItem, controller.CanAddMapFlipControl());
             UpdateMenuItem(addMapFlipMenuItem, controller.CanAddMapFlipControl());
+            UpdateMenuItem(splitToolStripMenuItem, controller.CanAddCuttingLine());
             UpdateMenuItem(mapExchangeControlMenuItem, controller.CanAddMapExchangeControl());
             UpdateMenuItem(mapExchangeControlToolStripMenuItem, controller.CanAddMapExchangeControl());
             UpdateMenuItem(mapExchangeSeparateMenuItem, controller.CanAddMapExchangeSeparate());
@@ -1484,6 +1485,7 @@ namespace PurplePen
             if (controller.CanDuplicateCurrentCourse()) {
                 // Initialize the dialog
                 AddCourse addCourseDialog = new AddCourse();
+                List<int> descriptionsCuts;
                 InitializeCoursePropertiesDialogWithCurrentValues(addCourseDialog);
                 addCourseDialog.SetTitle(MiscText.DuplicateCourseTitle);
                 addCourseDialog.HelpTopic = "CourseDuplicate.htm";
@@ -3325,6 +3327,11 @@ namespace PurplePen
         private void mapStd2017Menu_Click(object sender, EventArgs e)
         {
             controller.ChangeMapStandard("2017");
+        }
+
+        private void splitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            controller.AddCuttingLine();
         }
 
         private void mapStdSpr2019Menu_Click(object sender, EventArgs e)

@@ -141,7 +141,8 @@ namespace PurplePen
         // Add a bunch of course objects to this layout.
         public void AddCourseObject(CourseObj newObject)
         {
-            objects.Add(newObject);
+            if(newObject != null)
+                objects.Add(newObject);
         }
 
         // Render a course onto a map.

@@ -1972,6 +1972,7 @@
     <EmbeddedResource Include="CommandNameText.pl.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CommandNameText.pl.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandNameText.pt-BR.resx">
       <Generator>ResXFileCodeGenerator</Generator>

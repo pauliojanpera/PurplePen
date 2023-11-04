@@ -37,6 +37,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace PurplePen
 {
@@ -50,7 +51,8 @@ namespace PurplePen
         Normal,                                     // A normal 8-box line
         Directive,                                  // A finish or other directive. 2 boxes -- the finish symbol is box 0, the text (if any) is box 1.
         Text,                                         // An arbitrary text line. Uses 1 box for the text. Text is in box 0. 
-        Key                                           // A key line, giving the meaning of a special symbol. Symbol is box 0, meaning (in text) is box 1.
+        Key,                                        // A key line, giving the meaning of a special symbol. Symbol is box 0, meaning (in text) is box 1.
+        CuttingLine                                 // A line where the descriptions are to be split into two separate rectangles.
     }
 
     /// <summary>
@@ -185,7 +187,7 @@ namespace PurplePen
                 line.kind = kind;
                 line.boxes = new object[1];
                 line.boxes[0] = texts[index];
-                line.textual = texts[index];
+                line.textual = CourseFormatter.ExpandText(eventDB, courseView, texts[index]);
 
                 lines[index] = line;
             }
@@ -732,6 +734,21 @@ namespace PurplePen
                     line.boxes[1] = descriptionKey[symbolId];
 
                     list.Add(line);
+                }
+            }
+
+            if (purpose==Purpose.ForUI && courseView.DescriptionViews.Count>0)
+            {
+                DescriptionLine cuttingLine = new DescriptionLine();
+                cuttingLine.kind = DescriptionLineKind.CuttingLine;
+                cuttingLine.boxes = new object[0];
+                // TODO: Find out if we can't just pick the first DescriptionView here. I have no idea why there can be multiple of them for a single course to begin with.
+                foreach (int i in courseView.DescriptionViews[0].DescriptionsFragmentStartLines)
+                {
+                    if (i < list.Count)
+                    {
+                        list.Insert(i, cuttingLine);
+                    }
                 }
             }
 
