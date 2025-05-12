@@ -597,9 +597,6 @@ namespace PurplePen
                 PointF originalLocation = ((PointCourseObj)courseObjectStart).location;
                 PointF newLocation = new PointF(originalLocation.X + deltaX, originalLocation.Y + deltaY);
                 controller.MoveControlInCurrentCourse(courseObjectStart.controlId, newLocation);
-                //controller.MoveControlInCurrentCourse(
-                //    courseObjectStart.controlId, 
-                //    ((PointCourseObj)courseObjectStart).location.Add(delta));
             }
             controller.DefaultCommandMode();
         }
