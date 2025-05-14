@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-2022
 
     env:
-      Solution_Path: src/PPenWithoutTests.sln
+      Solution_Path: src/PPen.sln
       Configuration: Release
       Platform: "Mixed Platforms"
       MsftStoreInstallerProject: "{FDEAD95B-8416-467C-A8DD-492D00C6602A}"
