@@ -52,7 +52,7 @@ jobs:
         $content = Get-Content -Path $issFile -Raw
         $newVersion = "${{ env.FULL_VERSION }}"
         $content = $content -replace '(#define MyAppVersion\s*")[^"]+(")', "`${1}$newVersion`$2"
-        $content = $content -replace '(OutputBaseFilename\s*=\s*purplepen-setup)', "`$1-$newVersion"
+        $content = $content -replace '(OutputBaseFilename\s*=\s*notpurplepen-setup)', "`$1-$newVersion"
         Set-Content -Path $issFile -Value $content
 
     - name: Remove MsftStoreInstallerProject build targets
@@ -68,7 +68,7 @@ jobs:
         Set-Content -Path $solutionPath -Value $newContent
 
     - name: Build solution
-      run: msbuild $env:Solution_Path /p:Configuration=$env:Configuration /t:Build /p:Platform="$env:Platform" /p:DisableDisposableSigningCertificate=true
+      run: msbuild $env:Solution_Path /p:Configuration=$env:Configuration /t:Build /p:Platform="$env:Platform" /p:DisableDisposableSigningCertificate=true /p:NoWarn=CS1591
 
     - name: Upload installer artifact
       uses: actions/upload-artifact@v4
