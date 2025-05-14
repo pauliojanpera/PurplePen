@@ -17,6 +17,7 @@ build/
 *.sdf
 *.opensdf
 *.DS_Store
+x64.txt
 !src/Libraries/**/Debug
 !src/Libraries/**/Release
 src/TestResults
