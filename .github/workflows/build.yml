@@ -33,13 +33,21 @@ jobs:
     - name: Install HTML Help Workshop
       run: choco install html-help-workshop --no-progress --yes
 
-    - name: Extract version number
+    - name: Extract and update version number
       shell: pwsh
       run: |
-        $version = Select-String -Path "src/PurplePen/VersionNumber.cs" -Pattern 'Current = "([\d.]+)"' | ForEach-Object { $_.Matches.Groups[1].Value }
-        $buildId = "${{ github.run_number }}"
-        $fullVersion = "$version.$buildId"
-        echo "VERSION=$version" >> $env:GITHUB_ENV
+        $versionMatch = Select-String -Path "src/PurplePen/VersionNumber.cs" -Pattern 'Current = "([\d.]+)"'
+        $baseVersion = $versionMatch.Matches.Groups[1].Value
+        $versionParts = $baseVersion.Split('.')
+        $baseRevision = [int]$versionParts[3]
+        $buildId = [int]${{ github.run_number }}
+        $newRevision = $baseRevision + $buildId
+        $fullVersion = "$($versionParts[0]).$($versionParts[1]).$($versionParts[2]).$newRevision"
+        # Update VersionNumber.cs
+        $versionFile = "src/PurplePen/VersionNumber.cs"
+        $content = Get-Content -Path $versionFile -Raw
+        $content = $content -replace 'Current = "[\d.]+"', "Current = ""$fullVersion"""
+        Set-Content -Path $versionFile -Value $content
         echo "FULL_VERSION=$fullVersion" >> $env:GITHUB_ENV
 
     - name: Update Inno Setup script with version
