@@ -1,0 +1,42 @@
+name: Build NotPurplePen
+
+on:
+  push:
+    branches: [ master, dev, testi3 ]
+  pull_request:
+    branches: [ master, dev, testi3 ]
+
+jobs:
+  build:
+    name: Build and Package
+    runs-on: windows-2022
+
+    env:
+      Solution_Path: src/PPenWithoutTests.sln
+      Configuration: Release
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Install NuGet CLI
+      uses: nuget/setup-nuget@v1
+
+    - name: Restore NuGet packages
+      run: nuget restore $env:Solution_Path
+
+    - name: Install HTML Help Workshop
+      run: choco install html-help-workshop --no-progress --yes
+
+    - name: Build solution
+      run: msbuild $env:Solution_Path /p:Configuration=$env:Configuration /t:Build /p:Platform="Mixed Platforms" /p:DisableDisposableSigningCertificate=true
+      
+    - name: Upload installer artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: purplepen-setup
+        path: src/Innosetup/output/purplepen-setup.exe
+     
