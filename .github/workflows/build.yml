@@ -33,6 +33,25 @@ jobs:
     - name: Install HTML Help Workshop
       run: choco install html-help-workshop --no-progress --yes
 
+    - name: Extract version number
+      shell: pwsh
+      run: |
+        $version = Select-String -Path "src/PurplePen/VersionNumber.cs" -Pattern 'Current = "([\d.]+)"' | ForEach-Object { $_.Matches.Groups[1].Value }
+        $buildId = "${{ github.run_number }}"
+        $fullVersion = "$version.$buildId"
+        echo "VERSION=$version" >> $env:GITHUB_ENV
+        echo "FULL_VERSION=$fullVersion" >> $env:GITHUB_ENV
+
+    - name: Update Inno Setup script with version
+      shell: pwsh
+      run: |
+        $issFile = "src/Innosetup/PurplePen.iss"
+        $content = Get-Content -Path $issFile -Raw
+        $newVersion = "${{ env.FULL_VERSION }}"
+        $content = $content -replace '(#define MyAppVersion\s*")[^"]+(")', "`${1}$newVersion`$2"
+        $content = $content -replace '(OutputBaseFilename\s*=\s*purplepen-setup)', "`$1-$newVersion"
+        Set-Content -Path $issFile -Value $content
+
     - name: Remove MsftStoreInstallerProject build targets
       shell: pwsh
       run: |
@@ -47,9 +66,10 @@ jobs:
 
     - name: Build solution
       run: msbuild $env:Solution_Path /p:Configuration=$env:Configuration /t:Build /p:Platform="$env:Platform" /p:DisableDisposableSigningCertificate=true
-      
+
     - name: Upload installer artifact
       uses: actions/upload-artifact@v4
       with:
-        name: purplepen-setup
-        path: src/Innosetup/output/purplepen-setup.exe
+        name: purplepen-setup-${{ env.FULL_VERSION }}
+        path: src/Innosetup/output/purplepen-setup-${{ env.FULL_VERSION }}.exe
+        compression-level: 0
