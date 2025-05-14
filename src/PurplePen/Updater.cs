@@ -43,8 +43,10 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+#if MSSTORE
 using Windows.Foundation;
 using Windows.Services.Store;
+#endif
 
 
 namespace PurplePen
