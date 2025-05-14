@@ -38,33 +38,19 @@ jobs:
       run: |
         $version = Select-String -Path "src/PurplePen/VersionNumber.cs" -Pattern 'Current = "([\d.]+)"' | ForEach-Object { $_.Matches.Groups[1].Value }
         $buildId = "${{ github.run_number }}"
-        $appVersion = "$version.$buildId"
-        $fullVersion = "dev-$appVersion"
-        $assemblyVersion = $version.replace($version.split('.')[-1], "$($version.split('.')[-1])$buildId")
-        echo "VERSION=$version" >> $env:GITHUB_ENV
-        echo "APP_VERSION=$appVersion" >> $env:GITHUB_ENV
+        $fullVersion = $version.replace($version.split('.')[-1], "$($version.split('.')[-1])$buildId")
         echo "FULL_VERSION=$fullVersion" >> $env:GITHUB_ENV
-        echo "ASSEMBLY_VERSION=$assemblyVersion" >> $env:GITHUB_ENV
         $csFile = "src/PurplePen/VersionNumber.cs"
         $content = Get-Content -Path $csFile -Raw
         $content = $content -replace 'Current = "[\d.]+"', "Current = ""$fullVersion"""
         Set-Content -Path $csFile -Value $content
-
-    - name: Update AssemblyInfo with assembly version
-      shell: pwsh
-      run: |
-        $assemblyFile = "src/PurplePen/Properties/AssemblyInfo.cs"
-        $content = Get-Content -Path $assemblyFile -Raw
-        $content = $content -replace 'AssemblyVersion\("[^"]+"\)', "AssemblyVersion(""${{ env.ASSEMBLY_VERSION }}"")"
-        $content = $content -replace 'AssemblyFileVersion\("[^"]+"\)', "AssemblyFileVersion(""${{ env.ASSEMBLY_VERSION }}"")"
-        Set-Content -Path $assemblyFile -Value $content
 
     - name: Update Inno Setup script with version
       shell: pwsh
       run: |
         $issFile = "src/Innosetup/PurplePen.iss"
         $content = Get-Content -Path $issFile -Raw
-        $newVersion = "${{ env.APP_VERSION }}"
+        $newVersion = "${{ env.FULL_VERSION }}"
         $content = $content -replace '(#define MyAppVersion\s*")[^"]+(")', "`${1}$newVersion`$2"
         $content = $content -replace '(OutputBaseFilename\s*=\s*purplepen-setup)', "`$1-$newVersion"
         Set-Content -Path $issFile -Value $content
@@ -87,8 +73,8 @@ jobs:
     - name: Upload installer artifact
       uses: actions/upload-artifact@v4
       with:
-        name: notpurplepen-setup-${{ env.APP_VERSION }}
-        path: src/Innosetup/output/notpurplepen-setup-${{ env.APP_VERSION }}.exe
+        name: notpurplepen-setup-${{ env.FULL_VERSION }}
+        path: src/Innosetup/output/notpurplepen-setup-${{ env.FULL_VERSION }}.exe
 
     - name: Create published release
       id: create_release
@@ -112,6 +98,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: src/Innosetup/output/notpurplepen-setup-${{ env.APP_VERSION }}.exe
+        asset_path: src/Innosetup/output/notpurplepen-setup-${{ env.FULL_VERSION }}.exe
         asset_name: notpurplepen-setup-latest.exe
         asset_content_type: application/octet-stream
