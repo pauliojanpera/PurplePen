@@ -7,6 +7,7 @@
     <HelpCompiler>c:\program files (x86)\html help workshop\hhc.exe</HelpCompiler>
     <!-- Define the help project file -->
     <HelpProjectFile>..\..\doc\userdocs\help\Purple Pen Help.hhp</HelpProjectFile>
+    <OutputDir>$(MSBuildProjectDirectory)\output\</OutputDir>
   </PropertyGroup>
   <ItemGroup>
     <!-- 
@@ -23,6 +24,7 @@
   </ItemGroup>
   <Target Name="Build" Inputs="@(InputFile)" Outputs="$(OutputFile)">
     <Message Text="Building help file -- output file is $(OutputFile)" />
+    <MakeDir Directories="$(OutputDir)" ContinueOnError="true" />
     <Exec Command="&quot;$(HelpCompiler)&quot; &quot;$(HelpProjectFile)&quot;" IgnoreExitCode="true" />
   </Target>
   <Target Name="Clean">
