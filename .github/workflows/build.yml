@@ -12,8 +12,10 @@ jobs:
     runs-on: windows-2022
 
     env:
-      Solution_Path: src/PPenWithoutTests.sln
+      Solution_Path: src/PPen.sln
       Configuration: Release
+      Platform: Mixed Platforms
+      MsftStoreInstallerProject: {FDEAD95B-8416-467C-A8DD-492D00C6602A}
 
     steps:
     - name: Checkout source
@@ -31,12 +33,23 @@ jobs:
     - name: Install HTML Help Workshop
       run: choco install html-help-workshop --no-progress --yes
 
+    - name: Remove MsftStoreInstallerProject build targets
+      shell: pwsh
+      run: |
+        $solutionPath = "$env:Solution_Path"
+        $content = Get-Content -Path $solutionPath -Raw
+        $projectGuid = "$env:MsftStoreInstallerProject"
+        $config = "$env:Configuration"
+        $platform = "$env:Platform"
+        $pattern = "$projectGuid\.$config\|$platform\.Build\.0 = $config\|x64\r?\n\s*$projectGuid\.$config\|$platform\.Deploy\.0 = $config\|x64\r?\n"
+        $newContent = $content -replace $pattern, ''
+        Set-Content -Path $solutionPath -Value $newContent
+
     - name: Build solution
-      run: msbuild $env:Solution_Path /p:Configuration=$env:Configuration /t:Build /p:Platform="Mixed Platforms" /p:DisableDisposableSigningCertificate=true
+      run: msbuild $env:Solution_Path /p:Configuration=$env:Configuration /t:Build /p:Platform="$env:Platform" /p:DisableDisposableSigningCertificate=true
       
     - name: Upload installer artifact
       uses: actions/upload-artifact@v4
       with:
         name: purplepen-setup
         path: src/Innosetup/output/purplepen-setup.exe
-     
