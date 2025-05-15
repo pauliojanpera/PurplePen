@@ -16,6 +16,7 @@ jobs:
       Configuration: Release
       Platform: "Mixed Platforms"
       MsftStoreInstallerProject: "{FDEAD95B-8416-467C-A8DD-492D00C6602A}"
+      GithubPagesUrl: "https://pauliojanpera.github.io/NotPurplePen/downloads/"
 
     steps:
     - name: Checkout source
@@ -44,6 +45,14 @@ jobs:
         $content = Get-Content -Path $csFile -Raw
         $content = $content -replace 'Current = "[\d.]+"', "Current = ""$fullVersion"""
         Set-Content -Path $csFile -Value $content
+
+    - name: Update downloadLocation in Updater.cs
+      shell: pwsh
+      run: |
+        $updaterFile = "src/PurplePen/Updater.cs"
+        $content = Get-Content -Path $updaterFile -Raw
+        $content = $content -replace 'downloadLocation = "[^"]+"', "downloadLocation = ""$env:GithubPagesUrl"""
+        Set-Content -Path $updaterFile -Value $content
 
     - name: Update Inno Setup script with version
       shell: pwsh
@@ -90,7 +99,7 @@ jobs:
           Development build for NotPurplePen version ${{ env.FULL_VERSION }}.
           Build ID: ${{ github.run_number }}
           Commit: ${{ github.sha }}
-          Download: [notpurplepen-setup-latest.exe](${{ steps.create_release.outputs.upload_url }})
+          Download: [notpurplepen-setup-${{ env.FULL_VERSION }}.exe](${{ steps.create_release.outputs.upload_url }})
 
     - name: Upload release asset
       uses: actions/upload-release-asset@v1
@@ -99,5 +108,31 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: src/Innosetup/output/notpurplepen-setup-${{ env.FULL_VERSION }}.exe
-        asset_name: notpurplepen-setup-latest.exe
+        asset_name: notpurplepen-setup-${{ env.FULL_VERSION }}.exe
         asset_content_type: application/octet-stream
+
+    - name: Generate latest_prerelease_version.txt
+      shell: pwsh
+      run: |
+        $version = "${{ env.FULL_VERSION }}"
+        $filename = "notpurplepen-setup-$version.exe"
+        $content = "$version`n$filename"
+        New-Item -Path "downloads" -ItemType Directory -Force
+        Set-Content -Path "downloads/latest_prerelease_version.txt" -Value $content
+
+    - name: Create redirect for installer
+      shell: pwsh
+      run: |
+        $version = "${{ env.FULL_VERSION }}"
+        $filename = "notpurplepen-setup-$version.exe"
+        $releaseUrl = "https://github.com/pauliojanpera/NotPurplePen/releases/download/$version/$filename"
+        # Create an HTML redirect file (GitHub Pages supports meta redirects)
+        $redirectContent = "<meta http-equiv=`"refresh`" content=`"0; url=$releaseUrl`">"
+        Set-Content -Path "downloads/$filename" -Value $redirectContent
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: downloads
+        publish_branch: gh-pages
