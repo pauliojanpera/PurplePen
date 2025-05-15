@@ -136,3 +136,4 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: downloads
         publish_branch: gh-pages
+        force_orphan: true
