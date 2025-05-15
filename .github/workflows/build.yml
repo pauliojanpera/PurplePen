@@ -52,7 +52,7 @@ jobs:
         $content = Get-Content -Path $issFile -Raw
         $newVersion = "${{ env.FULL_VERSION }}"
         $content = $content -replace '(#define MyAppVersion\s*")[^"]+(")', "`${1}$newVersion`$2"
-        $content = $content -replace '(OutputBaseFilename\s*=\s*purplepen-setup)', "not`$1-$newVersion"
+        $content = $content -replace '(OutputBaseFilename\s*=)\s*purplepen-setup', "`$1 notpurplepen-$newVersion"
         Set-Content -Path $issFile -Value $content
 
     - name: Remove MsftStoreInstallerProject build targets
