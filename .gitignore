@@ -17,7 +17,8 @@ build/
 *.sdf
 *.opensdf
 *.DS_Store
-x64.txt
+**/x64.txt
+**/x86.txt
 !src/Libraries/**/Debug
 !src/Libraries/**/Release
 src/TestResults
@@ -111,6 +112,9 @@ src/.vs/
 /src/PurplePenMsixInstaller/BundleArtifacts/Upload/x64.txt
 /src/PurplePenMsixInstaller/BundleArtifacts/Upload/x86.txt
 src/MsixInstaller/AppPackages/
-src/MsftStoreInstaller/AppPackages/
+src/MsftStoreInstaller/**/AppPackages/
+src/MsftStoreInstaller/**/BundleArtifacts/
+src/MsftStoreInstaller/**/bin
+src/MsftStoreInstaller/**/obj
 /src/FontInstaller/output/Roboto Font Installer.exe
 loc/po/tar/

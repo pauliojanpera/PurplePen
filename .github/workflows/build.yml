@@ -1,0 +1,117 @@
+name: Build NotPurplePen
+
+on:
+  push:
+    branches: [ master, dev, testi3 ]
+  pull_request:
+    branches: [ master, dev, testi3 ]
+
+jobs:
+  build:
+    name: Build and Package
+    runs-on: windows-2022
+
+    env:
+      Solution_Path: src/PPen.sln
+      Configuration: Release
+      Platform: "Mixed Platforms"
+      MsftStoreInstallerProject: "{FDEAD95B-8416-467C-A8DD-492D00C6602A}"
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Install NuGet CLI
+      uses: nuget/setup-nuget@v1
+
+    - name: Restore NuGet packages
+      run: nuget restore $env:Solution_Path
+
+    - name: Install HTML Help Workshop
+      run: choco install html-help-workshop --no-progress --yes
+
+    - name: Extract and set version number
+      shell: pwsh
+      run: |
+        $version = Select-String -Path "src/PurplePen/VersionNumber.cs" -Pattern 'Current = "([\d.]+)"' | ForEach-Object { $_.Matches.Groups[1].Value }
+        $buildId = "${{ github.run_number }}"
+        $fullVersion = $version.replace($version.split('.')[-1], "$($version.split('.')[-1])$buildId")
+        echo "FULL_VERSION=$fullVersion" >> $env:GITHUB_ENV
+        $csFile = "src/PurplePen/VersionNumber.cs"
+        $content = Get-Content -Path $csFile -Raw
+        $content = $content -replace 'Current = "[\d.]+"', "Current = ""$fullVersion"""
+        Set-Content -Path $csFile -Value $content
+
+    - name: Update Inno Setup script with version
+      shell: pwsh
+      run: |
+        $issFile = "src/Innosetup/PurplePen.iss"
+        $content = Get-Content -Path $issFile -Raw
+        $newVersion = "${{ env.FULL_VERSION }}"
+        $content = $content -replace '(#define MyAppVersion\s*")[^"]+(")', "`${1}$newVersion`$2"
+        $content = $content -replace '(OutputBaseFilename\s*=)\s*purplepen-setup', "`$1 notpurplepen-setup-$newVersion"
+        Set-Content -Path $issFile -Value $content
+
+    - name: Debug Inno Setup script
+      shell: pwsh
+      run: |
+        $issFile = "src/Innosetup/PurplePen.iss"
+        Write-Output "Contents of PurplePen.iss:"
+        Get-Content -Path $issFile | Select-String "OutputBaseFilename" | ForEach-Object { Write-Output $_ }
+        Write-Output "Checking for expected OutputBaseFilename: notpurplepen-${{ env.FULL_VERSION }}"
+
+    - name: Remove MsftStoreInstallerProject build targets
+      shell: pwsh
+      run: |
+        $solutionPath = "$env:Solution_Path"
+        $content = Get-Content -Path $solutionPath -Raw
+        $projectGuid = "$env:MsftStoreInstallerProject"
+        $config = "$env:Configuration"
+        $platform = "$env:Platform"
+        $pattern = "$projectGuid\.$config\|$platform\.Build\.0 = .*\r?\n\s*$projectGuid\.$config\|$platform\.Deploy\.0 = .*\r?\n"
+        $newContent = $content -replace $pattern, ''
+        Set-Content -Path $solutionPath -Value $newContent
+
+    - name: Build solution
+      run: msbuild $env:Solution_Path /p:Configuration=$env:Configuration /t:Build /p:Platform="$env:Platform" /p:DisableDisposableSigningCertificate=true /p:NoWarn=CS1591
+
+    - name: Debug output directory
+      run: |
+        echo "Contents of src/Innosetup/output/:"
+        dir src\Innosetup\output
+        echo "Checking for expected file: notpurplepen-setup-${{ env.FULL_VERSION }}.exe"
+        
+    - name: Upload installer artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: notpurplepen-setup-${{ env.FULL_VERSION }}
+        path: src/Innosetup/output/notpurplepen-setup-${{ env.FULL_VERSION }}.exe
+
+    - name: Create published release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.FULL_VERSION }}
+        release_name: Development Build ${{ env.FULL_VERSION }}
+        draft: false
+        prerelease: true
+        body: |
+          Development build for NotPurplePen version ${{ env.FULL_VERSION }}.
+          Build ID: ${{ github.run_number }}
+          Commit: ${{ github.sha }}
+          Download: [notpurplepen-setup-latest.exe](https://github.com/pauliojanpera/NotPurplePen/releases/latest/download/notpurplepen-setup-latest.exe)
+
+    - name: Upload release asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: src/Innosetup/output/notpurplepen-setup-${{ env.FULL_VERSION }}.exe
+        asset_name: notpurplepen-setup-latest.exe
+        asset_content_type: application/octet-stream
