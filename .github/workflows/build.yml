@@ -52,7 +52,7 @@ jobs:
         $content = Get-Content -Path $issFile -Raw
         $newVersion = "${{ env.FULL_VERSION }}"
         $content = $content -replace '(#define MyAppVersion\s*")[^"]+(")', "`${1}$newVersion`$2"
-        $content = $content -replace '(OutputBaseFilename\s*=)\s*purplepen-setup', "`$1 notpurplepen-$newVersion"
+        $content = $content -replace '(OutputBaseFilename\s*=)\s*purplepen-setup', "`$1 notpurplepen-setup-$newVersion"
         Set-Content -Path $issFile -Value $content
 
     - name: Debug Inno Setup script
