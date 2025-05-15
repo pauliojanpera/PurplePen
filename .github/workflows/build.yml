@@ -2,9 +2,9 @@ name: Build NotPurplePen
 
 on:
   push:
-    branches: [ master, dev, testi3 ]
+    branches: [ dev ]
   pull_request:
-    branches: [ master, dev, testi3 ]
+    branches: [ dev ]
 
 jobs:
   build:
@@ -55,14 +55,6 @@ jobs:
         $content = $content -replace '(OutputBaseFilename\s*=)\s*purplepen-setup', "`$1 notpurplepen-setup-$newVersion"
         Set-Content -Path $issFile -Value $content
 
-    - name: Debug Inno Setup script
-      shell: pwsh
-      run: |
-        $issFile = "src/Innosetup/PurplePen.iss"
-        Write-Output "Contents of PurplePen.iss:"
-        Get-Content -Path $issFile | Select-String "OutputBaseFilename" | ForEach-Object { Write-Output $_ }
-        Write-Output "Checking for expected OutputBaseFilename: notpurplepen-${{ env.FULL_VERSION }}"
-
     - name: Remove MsftStoreInstallerProject build targets
       shell: pwsh
       run: |
@@ -78,12 +70,6 @@ jobs:
     - name: Build solution
       run: msbuild $env:Solution_Path /p:Configuration=$env:Configuration /t:Build /p:Platform="$env:Platform" /p:DisableDisposableSigningCertificate=true /p:NoWarn=CS1591
 
-    - name: Debug output directory
-      run: |
-        echo "Contents of src/Innosetup/output/:"
-        dir src\Innosetup\output
-        echo "Checking for expected file: notpurplepen-setup-${{ env.FULL_VERSION }}.exe"
-        
     - name: Upload installer artifact
       uses: actions/upload-artifact@v4
       with:
