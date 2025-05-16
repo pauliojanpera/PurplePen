@@ -86,7 +86,7 @@ jobs:
     - name: Copy the installer with metadata to GitHub Pages
       shell: pwsh
       run: |
-        $filename = "notpurplepen-setup-latest.exe"
+        $filename = "${{ env.RELEASE_FILE_NAME }}"
         $version = "${{ env.FULL_VERSION }}"
         $htmlContent = @"
         <!DOCTYPE html>
@@ -97,13 +97,13 @@ jobs:
             <title>NotPurplePen download</title>
         </head>
         <body>
-            <p>Latest development build: <a href="downloads/$filename">$version</a></p>
+            <p>Latest development build: <a href="downloads/notpurplepen-setup-latest.exe">$version</a></p>
         </body>
         </html>
         "@
-        Copy-Item -Path "src/Innosetup/output/$filename" -Destination "downloads/$filename"
         New-Item -Path "downloads" -ItemType Directory -Force
-        Set-Content -Path "downloads/latest_prerelease_version.txt" -Value "$version`n$filename"
+        Copy-Item -Path "src/Innosetup/output/$filename" -Destination "downloads/notpurplepen-setup-latest.exe"
+        Set-Content -Path "downloads/latest_prerelease_version.txt" -Value "$version`nnotpurplepen-setup-latest.exe"
         Set-Content -Path "index.html" -Value $htmlContent
 
     - name: Deploy to GitHub Pages
