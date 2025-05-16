@@ -16,6 +16,7 @@ jobs:
       Configuration: Release
       Platform: "Mixed Platforms"
       MsftStoreInstallerProject: "{FDEAD95B-8416-467C-A8DD-492D00C6602A}"
+      GithubPagesUrl: "https://pauliojanpera.github.io/NotPurplePen/downloads/"
 
     steps:
     - name: Checkout source
@@ -40,10 +41,22 @@ jobs:
         $buildId = "${{ github.run_number }}"
         $fullVersion = $version.replace($version.split('.')[-1], "$($version.split('.')[-1])$buildId")
         echo "FULL_VERSION=$fullVersion" >> $env:GITHUB_ENV
+        $releaseFilename = "notpurplepen-setup-$fullVersion.exe"
+        echo "RELEASE_FILE_NAME=$releaseFileName" >> $env:GITHUB_ENV
+        $releaseUrl = "https://github.com/pauliojanpera/NotPurplePen/releases/download/$fullVersion/$releaseFilename"
+        echo "RELEASE_URL=$releaseUrl" >> $env:GITHUB_ENV        
         $csFile = "src/PurplePen/VersionNumber.cs"
         $content = Get-Content -Path $csFile -Raw
         $content = $content -replace 'Current = "[\d.]+"', "Current = ""$fullVersion"""
         Set-Content -Path $csFile -Value $content
+
+    - name: Update downloadLocation in Updater.cs
+      shell: pwsh
+      run: |
+        $updaterFile = "src/PurplePen/Updater.cs"
+        $content = Get-Content -Path $updaterFile -Raw
+        $content = $content -replace 'downloadLocation = "[^"]+"', "downloadLocation = ""$env:GithubPagesUrl"""
+        Set-Content -Path $updaterFile -Value $content
 
     - name: Update Inno Setup script with version
       shell: pwsh
@@ -70,34 +83,33 @@ jobs:
     - name: Build solution
       run: msbuild $env:Solution_Path /p:Configuration=$env:Configuration /t:Build /p:Platform="$env:Platform" /p:DisableDisposableSigningCertificate=true /p:NoWarn=CS1591
 
-    - name: Upload installer artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: notpurplepen-setup-${{ env.FULL_VERSION }}
-        path: src/Innosetup/output/notpurplepen-setup-${{ env.FULL_VERSION }}.exe
+    - name: Copy the installer with metadata to GitHub Pages
+      shell: pwsh
+      run: |
+        $filename = "${{ env.RELEASE_FILE_NAME }}"
+        $version = "${{ env.FULL_VERSION }}"
+        $htmlContent = @"
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>NotPurplePen download</title>
+        </head>
+        <body>
+            <p>Latest development build: <a href="downloads/notpurplepen-setup-latest.exe">$version</a></p>
+        </body>
+        </html>
+        "@
+        New-Item -Path "downloads" -ItemType Directory -Force
+        Copy-Item -Path "src/Innosetup/output/$filename" -Destination "downloads/notpurplepen-setup-latest.exe"
+        Set-Content -Path "downloads/latest_prerelease_version.txt" -Value "$version`nnotpurplepen-setup-latest.exe"
+        Set-Content -Path "index.html" -Value $htmlContent
 
-    - name: Create published release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
       with:
-        tag_name: ${{ env.FULL_VERSION }}
-        release_name: Development Build ${{ env.FULL_VERSION }}
-        draft: false
-        prerelease: true
-        body: |
-          Development build for NotPurplePen version ${{ env.FULL_VERSION }}.
-          Build ID: ${{ github.run_number }}
-          Commit: ${{ github.sha }}
-          Download: [notpurplepen-setup-latest.exe](https://github.com/pauliojanpera/NotPurplePen/releases/latest/download/notpurplepen-setup-latest.exe)
-
-    - name: Upload release asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: src/Innosetup/output/notpurplepen-setup-${{ env.FULL_VERSION }}.exe
-        asset_name: notpurplepen-setup-latest.exe
-        asset_content_type: application/octet-stream
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
+        publish_branch: gh-pages
+        force_orphan: true
