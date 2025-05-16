@@ -128,6 +128,7 @@ jobs:
       shell: pwsh
       run: |
         $releaseUrl = "${{ env.RELEASE_URL }}"
+        $filename = "${{ env.RELEASE_FILE_NAME }}"
         # Create an HTML redirect file (GitHub Pages supports meta redirects)
         $redirectContent = "<meta http-equiv=`"refresh`" content=`"0; url=$releaseUrl`">"
         Set-Content -Path "downloads/$filename" -Value $redirectContent
