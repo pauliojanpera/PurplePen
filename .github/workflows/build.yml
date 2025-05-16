@@ -133,6 +133,32 @@ jobs:
         $redirectContent = "<meta http-equiv=`"refresh`" content=`"0; url=$releaseUrl`">"
         Set-Content -Path "downloads/$filename" -Value $redirectContent
 
+    - name: Create index.html for GitHub Pages
+      shell: pwsh
+      run: |
+        $filename = "${{ env.RELEASE_FILE_NAME }}"
+        $indexContent = "<!DOCTYPE html><html lang=`"en`"><body><h1>NotPurplePen Downloads</h1><p><a href=`"downloads/$filename`">$filename</a></p></body></html>"
+        Set-Content -Path "index.html" -Value $indexContent
+ 
+    - name: Generate index.html
+      shell: pwsh
+      run: |
+        $filename = "${{ env.RELEASE_FILE_NAME }}"
+        $htmlContent = @"
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>NotPurplePen download</title>
+        </head>
+        <body>
+            <p>Latest development build: <a href="downloads/$filename">$filename</a></p>
+        </body>
+        </html>
+        "@
+        Set-Content -Path "index.html" -Value $htmlContent
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
