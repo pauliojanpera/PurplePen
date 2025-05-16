@@ -42,7 +42,7 @@ jobs:
         $fullVersion = $version.replace($version.split('.')[-1], "$($version.split('.')[-1])$buildId")
         echo "FULL_VERSION=$fullVersion" >> $env:GITHUB_ENV
         $releaseFilename = "notpurplepen-setup-$fullVersion.exe"
-        echo "RELEASE_FILE_NAME=$fileName" >> $env:GITHUB_ENV
+        echo "RELEASE_FILE_NAME=$releaseFileName" >> $env:GITHUB_ENV
         $releaseUrl = "https://github.com/pauliojanpera/NotPurplePen/releases/download/$fullVersion/$releaseFilename"
         echo "RELEASE_URL=$releaseUrl" >> $env:GITHUB_ENV        
         $csFile = "src/PurplePen/VersionNumber.cs"
@@ -127,7 +127,6 @@ jobs:
     - name: Create redirect for installer
       shell: pwsh
       run: |
-        $filename = "${{ env.RELEASE_FILE_NAME }}"
         $releaseUrl = "${{ env.RELEASE_URL }}"
         # Create an HTML redirect file (GitHub Pages supports meta redirects)
         $redirectContent = "<meta http-equiv=`"refresh`" content=`"0; url=$releaseUrl`">"
