@@ -3,9 +3,9 @@ name: Build NotPurplePen
 on:
   push:
     branches: [ dev ]
-  pull_request:
-    branches: [ dev ]
-
+    paths:
+      - 'src/**'
+     
 jobs:
   build:
     name: Build and Package
@@ -44,7 +44,7 @@ jobs:
         $releaseFilename = "notpurplepen-setup-$fullVersion.exe"
         echo "RELEASE_FILE_NAME=$releaseFileName" >> $env:GITHUB_ENV
         $releaseUrl = "https://github.com/pauliojanpera/NotPurplePen/releases/download/$fullVersion/$releaseFilename"
-        echo "RELEASE_URL=$releaseUrl" >> $env:GITHUB_ENV        
+        echo "RELEASE_URL=$releaseUrl" >> $env:GITHUB_ENV
         $csFile = "src/PurplePen/VersionNumber.cs"
         $content = Get-Content -Path $csFile -Raw
         $content = $content -replace 'Current = "[\d.]+"', "Current = ""$fullVersion"""
