@@ -41,6 +41,10 @@ jobs:
         $buildId = "${{ github.run_number }}"
         $fullVersion = $version.replace($version.split('.')[-1], "$($version.split('.')[-1])$buildId")
         echo "FULL_VERSION=$fullVersion" >> $env:GITHUB_ENV
+        $releaseFilename = "notpurplepen-setup-$fullVersion.exe"
+        echo "RELEASE_FILE_NAME=$fileName" >> $env:GITHUB_ENV
+        $releaseUrl = "https://github.com/pauliojanpera/NotPurplePen/releases/download/$fullVersion/$releaseFilename"
+        echo "RELEASE_URL=$releaseUrl" >> $env:GITHUB_ENV        
         $csFile = "src/PurplePen/VersionNumber.cs"
         $content = Get-Content -Path $csFile -Raw
         $content = $content -replace 'Current = "[\d.]+"', "Current = ""$fullVersion"""
@@ -99,7 +103,7 @@ jobs:
           Development build for NotPurplePen version ${{ env.FULL_VERSION }}.
           Build ID: ${{ github.run_number }}
           Commit: ${{ github.sha }}
-          Download: [notpurplepen-setup-${{ env.FULL_VERSION }}.exe](${{ steps.create_release.outputs.upload_url }})
+          Download: [${{ env.RELEASE_FILE_NAME }}](${{ env.RELEASE_URL }})
 
     - name: Upload release asset
       uses: actions/upload-release-asset@v1
@@ -108,14 +112,14 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: src/Innosetup/output/notpurplepen-setup-${{ env.FULL_VERSION }}.exe
-        asset_name: notpurplepen-setup-${{ env.FULL_VERSION }}.exe
+        asset_name: ${{ env.RELEASE_FILE_NAME }}
         asset_content_type: application/octet-stream
 
     - name: Generate latest_prerelease_version.txt
       shell: pwsh
       run: |
         $version = "${{ env.FULL_VERSION }}"
-        $filename = "notpurplepen-setup-$version.exe"
+        $filename = "${{ env.RELEASE_FILE_NAME }}"
         $content = "$version`n$filename"
         New-Item -Path "downloads" -ItemType Directory -Force
         Set-Content -Path "downloads/latest_prerelease_version.txt" -Value $content
@@ -123,9 +127,8 @@ jobs:
     - name: Create redirect for installer
       shell: pwsh
       run: |
-        $version = "${{ env.FULL_VERSION }}"
-        $filename = "notpurplepen-setup-$version.exe"
-        $releaseUrl = "https://github.com/pauliojanpera/NotPurplePen/releases/download/$version/$filename"
+        $filename = "${{ env.RELEASE_FILE_NAME }}"
+        $releaseUrl = "${{ env.RELEASE_URL }}"
         # Create an HTML redirect file (GitHub Pages supports meta redirects)
         $redirectContent = "<meta http-equiv=`"refresh`" content=`"0; url=$releaseUrl`">"
         Set-Content -Path "downloads/$filename" -Value $redirectContent
