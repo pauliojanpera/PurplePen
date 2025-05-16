@@ -83,67 +83,11 @@ jobs:
     - name: Build solution
       run: msbuild $env:Solution_Path /p:Configuration=$env:Configuration /t:Build /p:Platform="$env:Platform" /p:DisableDisposableSigningCertificate=true /p:NoWarn=CS1591
 
-    - name: Upload installer artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: notpurplepen-setup-${{ env.FULL_VERSION }}
-        path: src/Innosetup/output/notpurplepen-setup-${{ env.FULL_VERSION }}.exe
-
-    - name: Create published release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ env.FULL_VERSION }}
-        release_name: Development Build ${{ env.FULL_VERSION }}
-        draft: false
-        prerelease: true
-        body: |
-          Development build for NotPurplePen version ${{ env.FULL_VERSION }}.
-          Build ID: ${{ github.run_number }}
-          Commit: ${{ github.sha }}
-          Download: [${{ env.RELEASE_FILE_NAME }}](${{ env.RELEASE_URL }})
-
-    - name: Upload release asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: src/Innosetup/output/notpurplepen-setup-${{ env.FULL_VERSION }}.exe
-        asset_name: ${{ env.RELEASE_FILE_NAME }}
-        asset_content_type: application/octet-stream
-
-    - name: Generate latest_prerelease_version.txt
+    - name: Copy the installer with metadata to GitHub Pages
       shell: pwsh
       run: |
+        $filename = "notpurplepen-setup-latest.exe"
         $version = "${{ env.FULL_VERSION }}"
-        $filename = "${{ env.RELEASE_FILE_NAME }}"
-        $content = "$version`n$filename"
-        New-Item -Path "downloads" -ItemType Directory -Force
-        Set-Content -Path "downloads/latest_prerelease_version.txt" -Value $content
-
-    - name: Create redirect for installer
-      shell: pwsh
-      run: |
-        $releaseUrl = "${{ env.RELEASE_URL }}"
-        $filename = "${{ env.RELEASE_FILE_NAME }}"
-        # Create an HTML redirect file (GitHub Pages supports meta redirects)
-        $redirectContent = "<meta http-equiv=`"refresh`" content=`"0; url=$releaseUrl`">"
-        Set-Content -Path "downloads/$filename" -Value $redirectContent
-
-    - name: Create index.html for GitHub Pages
-      shell: pwsh
-      run: |
-        $filename = "${{ env.RELEASE_FILE_NAME }}"
-        $indexContent = "<!DOCTYPE html><html lang=`"en`"><body><h1>NotPurplePen Downloads</h1><p><a href=`"downloads/$filename`">$filename</a></p></body></html>"
-        Set-Content -Path "index.html" -Value $indexContent
- 
-    - name: Generate index.html
-      shell: pwsh
-      run: |
-        $filename = "${{ env.RELEASE_FILE_NAME }}"
         $htmlContent = @"
         <!DOCTYPE html>
         <html lang="en">
@@ -157,6 +101,10 @@ jobs:
         </body>
         </html>
         "@
+        Copy-Item -Path "src/Innosetup/output/$filename" -Destination "downloads/$filename"
+        New-Item -Path "downloads" -ItemType Directory -Force
+        Set-Content -Path "downloads/latest_prerelease_version.txt" -Value "$version`n$filename"
+        Set-Content -Path "index.html" -Value "<!DOCTYPE html><html lang=`"en`"><body><h1>NotPurplePen download</h1><p>Latest version: <a href=`"downloads/$filename`">$version</a></p></body></html>"
         Set-Content -Path "index.html" -Value $htmlContent
 
     - name: Deploy to GitHub Pages
