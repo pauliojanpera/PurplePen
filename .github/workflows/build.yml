@@ -58,7 +58,7 @@ jobs:
         $utilCs = "src/PurplePen/Util.cs"
         $content = Get-Content -Path $utilCs -Raw
         $oldCode = 'if \(v\.Revision >= VersionNumber\.Stable\)\s*modifier = "";'
-        $newCode = 'if (v.Revision == VersionNumber.Stable)\nmodifier = "";\nelse if (v.Revision > VersionNumber.Stable)\nmodifier = " " + string.Format("dev build {0}", v.Revision-VersionNumber.Stable);'
+        $newCode = 'if (v.Revision == VersionNumber.Stable) modifier = ""; else if (v.Revision > VersionNumber.Stable) modifier = " " + string.Format("dev build {0}", v.Revision-VersionNumber.Stable);'
         $content = $content -replace $oldCode, $newCode
         Set-Content -Path $utilCs -Value $content
     
