@@ -5,6 +5,7 @@ on:
     branches: [ dev ]
     paths:
       - 'src/**'
+      - '.github/**'
      
 jobs:
   build:
@@ -51,6 +52,16 @@ jobs:
         echo "RELEASE_FILE_NAME=notpurplepen-setup-$bumpedVersion.exe" >> $env:GITHUB_ENV
         echo "RELEASE_URL=$env:ReleaseBaseUrl/$bumpedVersion/$releaseFilename" >> $env:GITHUB_ENV
 
+    - name: Modify version display format in Util.cs
+      shell: pwsh
+      run: |
+        $utilCs = "src/PurplePen/Util.cs"
+        $content = Get-Content -Path $utilCs -Raw
+        $oldCode = 'if \(v\.Revision >= VersionNumber\.Stable\)\s*modifier = "";'
+        $newCode = 'if (v.Revision == VersionNumber.Stable)\nmodifier = "";\nelse if (v.Revision > VersionNumber.Stable)\nmodifier = " " + string.Format("dev build {0}", v.Revision-VersionNumber.Stable);'
+        $content = $content -replace $oldCode, $newCode
+        Set-Content -Path $utilCs -Value $content
+    
     - name: Update downloadLocation in Updater.cs
       shell: pwsh
       run: |
