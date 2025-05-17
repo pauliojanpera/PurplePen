@@ -17,6 +17,7 @@ jobs:
       Platform: "Mixed Platforms"
       MsftStoreInstallerProject: "{FDEAD95B-8416-467C-A8DD-492D00C6602A}"
       GithubPagesUrl: "https://pauliojanpera.github.io/NotPurplePen/downloads/"
+      ReleaseBaseUrl: "https://github.com/pauliojanpera/NotPurplePen/releases/download"
 
     steps:
     - name: Checkout source
@@ -37,18 +38,18 @@ jobs:
     - name: Extract and set version number
       shell: pwsh
       run: |
-        $version = Select-String -Path "src/PurplePen/VersionNumber.cs" -Pattern 'Current = "([\d.]+)"' | ForEach-Object { $_.Matches.Groups[1].Value }
-        $buildId = "${{ github.run_number }}"
-        $fullVersion = $version.replace($version.split('.')[-1], "$($version.split('.')[-1])$buildId")
-        echo "FULL_VERSION=$fullVersion" >> $env:GITHUB_ENV
-        $releaseFilename = "notpurplepen-setup-$fullVersion.exe"
-        echo "RELEASE_FILE_NAME=$releaseFileName" >> $env:GITHUB_ENV
-        $releaseUrl = "https://github.com/pauliojanpera/NotPurplePen/releases/download/$fullVersion/$releaseFilename"
-        echo "RELEASE_URL=$releaseUrl" >> $env:GITHUB_ENV
-        $csFile = "src/PurplePen/VersionNumber.cs"
-        $content = Get-Content -Path $csFile -Raw
-        $content = $content -replace 'Current = "[\d.]+"', "Current = ""$fullVersion"""
-        Set-Content -Path $csFile -Value $content
+        $versionNumberCs = "src/PurplePen/VersionNumber.cs"
+        $content = Get-Content -Path $versionNumberCs -Raw
+        $bumpedVersion = [int[]]((([regex]::Match($content, 'Current = "([\d.]+)"')).Groups[1].Value).Split('.'))
+        $bumpedVersion[-1] += ${{ github.run_number }}
+        $prerelease = ('_prerelease', '')[$bumpedVersion[-1] -ge 500]
+        $bumpedVersion = $bumpedVersion -join '.'
+        $content = $content -replace 'Current = "[\d.]+"', "Current = ""$bumpedVersion"""
+        Set-Content -Path $versionNumberCs -Value $content
+        echo "PRERELEASE=$prerelease" >> $env:GITHUB_ENV
+        echo "BUMPED_VERSION=$bumpedVersion" >> $env:GITHUB_ENV
+        echo "RELEASE_FILE_NAME=notpurplepen-setup-$bumpedVersion.exe" >> $env:GITHUB_ENV
+        echo "RELEASE_URL=$env:ReleaseBaseUrl/$bumpedVersion/$releaseFilename" >> $env:GITHUB_ENV
 
     - name: Update downloadLocation in Updater.cs
       shell: pwsh
@@ -63,7 +64,7 @@ jobs:
       run: |
         $issFile = "src/Innosetup/PurplePen.iss"
         $content = Get-Content -Path $issFile -Raw
-        $newVersion = "${{ env.FULL_VERSION }}"
+        $newVersion = "${{ env.BUMPED_VERSION }}"
         $content = $content -replace '(#define MyAppVersion\s*")[^"]+(")', "`${1}$newVersion`$2"
         $content = $content -replace '(OutputBaseFilename\s*=)\s*purplepen-setup', "`$1 notpurplepen-setup-$newVersion"
         Set-Content -Path $issFile -Value $content
@@ -87,7 +88,7 @@ jobs:
       shell: pwsh
       run: |
         $filename = "${{ env.RELEASE_FILE_NAME }}"
-        $version = "${{ env.FULL_VERSION }}"
+        $version = "${{ env.BUMPED_VERSION }}"
         $htmlContent = @"
         <!DOCTYPE html>
         <html lang="en">
@@ -103,7 +104,7 @@ jobs:
         "@
         New-Item -Path "downloads" -ItemType Directory -Force
         Copy-Item -Path "src/Innosetup/output/$filename" -Destination "downloads/notpurplepen-setup-latest.exe"
-        Set-Content -Path "downloads/latest_prerelease_version.txt" -Value "$version`nnotpurplepen-setup-latest.exe"
+        Set-Content -Path "downloads/latest${{ env.PRERELEASE }}_version.txt" -Value "$version`nnotpurplepen-setup-latest.exe"
         Set-Content -Path "index.html" -Value $htmlContent
 
     - name: Deploy to GitHub Pages
