@@ -3243,8 +3243,14 @@ namespace PurplePen
         public CommandStatus CanAddCuttingLine()
         {
             SelectionMgr.SelectionInfo selection = selectionMgr.Selection;
-            return (FindActiveCourseDescriptionsSpecial().IsNone || selection.SelectionKind == SelectionMgr.SelectionKind.None || selection.SelectionKind == SelectionMgr.SelectionKind.CuttingLine)
-                ? CommandStatus.Disabled : CommandStatus.Enabled;
+            if (selection.SelectionKind != SelectionMgr.SelectionKind.Control
+                && selection.SelectionKind != SelectionMgr.SelectionKind.Leg)
+                return CommandStatus.Disabled;
+
+            if (FindActiveCourseDescriptionsSpecial().IsNone)
+                return CommandStatus.Disabled;
+            
+            return CommandStatus.Enabled;
         }
 
         private Id<Special> FindActiveCourseDescriptionsSpecial()
@@ -3255,28 +3261,30 @@ namespace PurplePen
 
         public void AddCuttingLine()
         {
-            SelectionMgr.SelectionInfo selection = selectionMgr.Selection;
-            int firstLine, lastLine;
-            selectionMgr.GetSelectedLines(out firstLine, out lastLine);
-            if (CanAddCuttingLine()==CommandStatus.Enabled)
-            {
-                int numCuts = 0;
-                for (int i = 0; i < firstLine; i++)
-                {
-                    if (selectionMgr.ActiveDescription[i].kind == DescriptionLineKind.CuttingLine)
-                        numCuts++;
-                }
+            if (CanAddCuttingLine() != CommandStatus.Enabled)
+                return;
 
-                // Find the descriptions special for the active course, if any
-                Id<Special> descriptionsId = FindActiveCourseDescriptionsSpecial();
-                if (descriptionsId.IsNotNone)
-                {
-                    undoMgr.BeginCommand(8553, CommandNameText.AddDescriptionsFragment);
-                    ChangeEvent.AddDescriptionsFragment(eventDB, descriptionsId, firstLine - numCuts );
-                    undoMgr.EndCommand(8553);
-                    //                selectionMgr.SelectCuttingLine();      // select the new line.
-                }
+            Id<Special> descriptionsId = FindActiveCourseDescriptionsSpecial();
+            if (descriptionsId.IsNone)
+                return;
+
+            SelectionMgr.SelectionInfo selection = selectionMgr.Selection;
+            DescriptionLine[] activeDescription = selectionMgr.ActiveDescription;
+          
+            int descriptionsCutInsertLocation = 0;
+            for (int i = 0; i < activeDescription.Length; i++)
+            {
+                DescriptionLine line = activeDescription[i];
+                if (line.courseControlId.IsNotNone && selection.SelectedCourseControl == line.courseControlId)
+                    break;
+
+                if (line.kind != DescriptionLineKind.CuttingLine)
+                    descriptionsCutInsertLocation++;
             }
+
+            undoMgr.BeginCommand(8553, CommandNameText.AddDescriptionsFragment);
+            ChangeEvent.AddDescriptionsFragment(eventDB, descriptionsId, descriptionsCutInsertLocation);
+            undoMgr.EndCommand(8553);
         }
         
         public CommandStatus CanAddTextLine()
