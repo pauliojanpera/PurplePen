@@ -739,7 +739,7 @@ namespace PurplePen
                 // TODO: Find out if we can't just pick the first DescriptionView here. I have no idea why there can be multiple of them for a single course to begin with.
                 foreach (int i in courseView.DescriptionViews[0].DescriptionsFragmentStartLines)
                 {
-                    if (i < list.Count)
+                    if (i > 0 && i < list.Count)
                     {
                         list.Insert(i, cuttingLine);
                     }
