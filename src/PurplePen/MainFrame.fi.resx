@@ -480,6 +480,9 @@
   <data name="stretchMenu.Text" xml:space="preserve">
     <value>&amp;Venytä</value>
   </data>
+  <data name="splitToolStripMenuItem.Text" xml:space="preserve">
+    <value>Halkai&amp;se</value>
+  </data>
   <data name="noFlaggingMenu.Text" xml:space="preserve">
     <value>Ei viitoitusta</value>
   </data>
