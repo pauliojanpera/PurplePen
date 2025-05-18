@@ -52,6 +52,7 @@ using PurplePen.MapModel;
 using PurplePen.DebugUI;
 using PurplePen.Graphics2D;
 using PurplePen.Livelox;
+using static PurplePen.BitmapCreationSettings;
 
 namespace PurplePen
 {
@@ -3327,6 +3328,50 @@ namespace PurplePen
         private void mapStd2017Menu_Click(object sender, EventArgs e)
         {
             controller.ChangeMapStandard("2017");
+        }
+
+        private void dropboxPrintToolStripButton_Click(object sender, EventArgs e)
+        {
+            exportToARemotePrinter(new Id<Course>[] {
+                controller.GetSelectionMgr().Selection.ActiveCourseDesignator.CourseId
+            });
+        }
+
+        private void exportAllToARemotePrinterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            exportToARemotePrinter(new Id<Course>[] { Id<Course>.None }
+                .Concat(controller.GetEventDB().AllCourseIds)
+                .ToArray());
+        }
+
+        private void exportToARemotePrinter(Id<Course>[] courseIds)
+        {
+            BitmapCreationSettings settings = new BitmapCreationSettings();
+            settings.CourseIds = courseIds;
+            settings.AllCourses = false;
+            settings.VariationChoicesPerCourse = settings.CourseIds.ToDictionary(
+                id => id,
+                id => new VariationChoices { Kind = VariationChoices.VariationChoicesKind.AllVariations }
+            );
+            settings.fileDirectory = false;
+            settings.mapDirectory = false;
+            settings.outputDirectory = "..\\Tulostus";
+            settings.ExportedBitmapKind = BitmapCreationSettings.BitmapKind.Jpeg;
+            settings.Dpi = 600;
+            settings.ColorModel = ColorModel.RGB;
+            settings.Quality = 95;
+            settings.AutoRotate = true;
+            controller.CreateBitmapFiles(settings);
+
+            try
+            {
+                controller.CreateBitmapFiles(settings);
+                InfoMessage(courseIds.Length>1 ? MiscText.ExportsSucceeded : MiscText.ExportSucceeded);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage(string.Format(MiscText.ExportFailed, ex.Message));
+            }
         }
 
         private void splitToolStripMenuItem_Click(object sender, EventArgs e)

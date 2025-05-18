@@ -833,6 +833,33 @@ namespace PurplePen {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export failed: {0}.
+        /// </summary>
+        internal static string ExportFailed {
+            get {
+                return ResourceManager.GetString("ExportFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exports succeeded..
+        /// </summary>
+        internal static string ExportsSucceeded {
+            get {
+                return ResourceManager.GetString("ExportsSucceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export succeeded..
+        /// </summary>
+        internal static string ExportSucceeded {
+            get {
+                return ResourceManager.GetString("ExportSucceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File &apos;{0}&apos; already exists in the specified folder. Click the &quot;Back&quot; button and choose a new folder or a new event title..
         /// </summary>
         internal static string FileAlreadyExists {

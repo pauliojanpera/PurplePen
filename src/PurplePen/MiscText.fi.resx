@@ -628,4 +628,13 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
   <data name="GhostscriptNotInstalled" xml:space="preserve">
     <value>GPL Ghostscriptiä ei ole asennettu</value>
   </data>
+  <data name="ExportSucceeded" xml:space="preserve">
+    <value>Rata julkaistiin etätulostimelle.</value>
+  </data>
+  <data name="ExportFailed" xml:space="preserve">
+    <value>Ratojen julkaiseminen etätulostimelle epäonnistui.</value>
+  </data>
+  <data name="ExportsSucceeded" xml:space="preserve">
+    <value>Radat julkaistiin etätulostimelle.</value>
+  </data>
 </root>

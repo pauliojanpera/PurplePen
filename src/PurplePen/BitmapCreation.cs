@@ -51,6 +51,7 @@ namespace PurplePen
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Security.Policy;
 
     // Class to output courses to bitmaps
     class BitmapCreation
@@ -119,8 +120,13 @@ namespace PurplePen
         string CreateOutputFileName(CourseDesignator courseDesignator)
         {
             string basename = QueryEvent.CreateOutputFileName(eventDB, courseDesignator, bitmapCreationSettings.filePrefix, "", GetFileExtension());
-
-            return Path.GetFullPath(Path.Combine(bitmapCreationSettings.outputDirectory, basename));
+            string baseDirectory = bitmapCreationSettings.outputDirectory;
+            // Convert relative fileName to absolute path if necessary
+            if (!Path.IsPathRooted(baseDirectory))
+            {
+                baseDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(controller.FileName), baseDirectory));
+            }
+            return Path.GetFullPath(Path.Combine(baseDirectory, basename));
         }
 
         // Get the file extensions for the type of bitmap file we are creating.

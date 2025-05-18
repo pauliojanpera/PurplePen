@@ -180,6 +180,9 @@
   <data name="createKMLFileMenu.Text" xml:space="preserve">
     <value>Luo &amp;KML-tiedosto...</value>
   </data>
+  <data name="exportAllToARemotePrinterToolStripMenuItem.Text" xml:space="preserve">
+    <value>Julkaise kaikki radat etätulostimelle</value>
+  </data>
   <data name="printDescriptionsMenu.Text" xml:space="preserve">
     <value>Tulosta rastin&amp;määritteet...</value>
   </data>
@@ -603,6 +606,9 @@
   <data name="saveToolStripButton.ToolTipText" xml:space="preserve">
     <value>Tallenna (Ctrl+S)</value>
   </data>
+  <data name="exportForPrinterToolStripButton.Text" xml:space="preserve">
+    <value>Julkaise etätulostimelle</value>
+  </data>
   <data name="undoToolStripButton.Text" xml:space="preserve">
     <value>Kumoa</value>
   </data>
@@ -735,10 +741,13 @@
   <data name="addSpecialItemMenu.Text" xml:space="preserve">
     <value>Lisää &amp;erityiskohde</value>
   </data>
+  <data name="ncross.Text" xml:space="preserve">
+    <value>Lisää erityiskohde</value>
+  </data>
   <data name="gpsMenu.Text" xml:space="preserve">
     <value>&amp;GPS</value>
   </data>
-  <data name="ncross.Text" xml:space="preserve">
-    <value>Lisää erityiskohde</value>
+  <data name="dropboxPrintToolStripButton.Text" xml:space="preserve">
+    <value>Julkaise tulostimelle</value>
   </data>
 </root>
