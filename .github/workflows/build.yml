@@ -99,7 +99,8 @@ jobs:
       shell: pwsh
       run: |
         $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss UTC"
-        $commitMessage = "${{ github.event.head_commit.message }}"
+        $commitMessages = git log -n 10 --pretty=%s | ForEach-Object { "<li>$_</li>" }
+        $commitList = $commitMessages -join "`n        "
         $filename = "${{ env.RELEASE_FILE_NAME }}"
         $version = "${{ env.BUMPED_VERSION }}"
         $htmlContent = @"
@@ -111,7 +112,12 @@ jobs:
             <title>NotPurplePen download</title>
         </head>
         <body>
-            <p>Latest development build: <a href="downloads/notpurplepen-setup-latest.exe">$version</a> ($timestamp, $commitMessage)</p>
+            <p>Latest development build: <a href="downloads/notpurplepen-setup-latest.exe">$version</a> ($timestamp)</p>
+            <p>
+                <ul>
+                    $commitList
+                </ul>
+            </p>
         </body>
         </html>
         "@
