@@ -3355,7 +3355,7 @@ namespace PurplePen
             );
             settings.fileDirectory = false;
             settings.mapDirectory = false;
-            settings.outputDirectory = "..\\Tulostus";
+            settings.outputDirectory = "..\\Tulostus\\Järjestelmä";
             settings.ExportedBitmapKind = BitmapCreationSettings.BitmapKind.Jpeg;
             settings.Dpi = 600;
             settings.ColorModel = ColorModel.RGB;
