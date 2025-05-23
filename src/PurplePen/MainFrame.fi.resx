@@ -741,4 +741,10 @@
   <data name="ncross.Text" xml:space="preserve">
     <value>Lisää erityiskohde</value>
   </data>
+  <data name="publishCoursesToolStripButton.Text" xml:space="preserve">
+    <value>Julkaise ratoja...</value>
+  </data>
+  <data name="publishCoursesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Julkaise ratoja...</value>
+  </data>
 </root>

@@ -330,6 +330,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ExportKml.cs" />
+    <Compile Include="PublishCoursesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PublishCoursesDialog.Designer.cs">
+      <DependentUpon>PublishCoursesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="FontInstallation.cs" />
     <Compile Include="Livelox\ApiContracts\ApiError.cs" />
     <Compile Include="Livelox\ApiContracts\Country.cs" />
@@ -2834,6 +2840,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EnterSymbolText.zh-TW.resx">
       <DependentUpon>EnterSymbolText.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PublishCoursesDialog.fi.resx">
+      <DependentUpon>PublishCoursesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PublishCoursesDialog.resx">
+      <DependentUpon>PublishCoursesDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InitialScreen.cs.resx">
       <DependentUpon>InitialScreen.cs</DependentUpon>

@@ -52,6 +52,8 @@ using PurplePen.MapModel;
 using PurplePen.DebugUI;
 using PurplePen.Graphics2D;
 using PurplePen.Livelox;
+using static PurplePen.BitmapCreationSettings;
+using PurplePen.Livelox.ApiContracts;
 
 namespace PurplePen
 {
@@ -3327,6 +3329,47 @@ namespace PurplePen
         private void mapStd2017Menu_Click(object sender, EventArgs e)
         {
             controller.ChangeMapStandard("2017");
+        }
+
+        private void publishCourses_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new PublishCoursesDialog(controller.GetEventDB()))
+            {
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    publishCourses(dlg.SelectedCourses, dlg.DataExchangeFolderPath);
+                }
+            }
+        }
+
+        private void publishCourses(Id<Course>[] courseIds, string printerDataExchangeFolderPath)
+        {
+            BitmapCreationSettings settings = new BitmapCreationSettings();
+            settings.CourseIds = courseIds;
+            settings.AllCourses = false;
+            settings.VariationChoicesPerCourse = settings.CourseIds.ToDictionary(
+                id => id,
+                id => new VariationChoices { Kind = VariationChoices.VariationChoicesKind.AllVariations }
+            );
+            settings.fileDirectory = false;
+            settings.mapDirectory = false;
+            settings.outputDirectory = @"..\Tulostus\Järjestelmä";
+            settings.ExportedBitmapKind = BitmapCreationSettings.BitmapKind.Jpeg;
+            settings.Dpi = 600;
+            settings.ColorModel = ColorModel.RGB;
+            settings.Quality = 95;
+            settings.AutoRotate = true;
+            controller.CreateBitmapFiles(settings);
+
+            try
+            {
+                controller.CreateBitmapFiles(settings);
+                InfoMessage(MiscText.PublishSucceeded);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage(string.Format(MiscText.PublishFailed, ex.Message));
+            }
         }
 
         private void splitToolStripMenuItem_Click(object sender, EventArgs e)

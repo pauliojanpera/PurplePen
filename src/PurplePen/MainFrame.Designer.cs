@@ -101,6 +101,7 @@ namespace PurplePen
             this.createXmlMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.createGPXFileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.createKMLFileMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.publishCoursesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.printDescriptionsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.printPunchCardsMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -262,10 +263,11 @@ namespace PurplePen
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.publishCoursesToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.undoToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.redoToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.addStartToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.addControlToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -558,6 +560,7 @@ namespace PurplePen
             this.createXmlMenu,
             this.createGPXFileMenu,
             this.createKMLFileMenu,
+            this.publishCoursesToolStripMenuItem,
             this.toolStripMenuItem1,
             this.printDescriptionsMenu,
             this.printPunchCardsMenu,
@@ -673,6 +676,12 @@ namespace PurplePen
             this.createKMLFileMenu.Name = "createKMLFileMenu";
             resources.ApplyResources(this.createKMLFileMenu, "createKMLFileMenu");
             this.createKMLFileMenu.Click += new System.EventHandler(this.createKmlFilesMenu_Click);
+            // 
+            // publishCoursesToolStripMenuItem
+            // 
+            this.publishCoursesToolStripMenuItem.Name = "publishCoursesToolStripMenuItem";
+            resources.ApplyResources(this.publishCoursesToolStripMenuItem, "publishCoursesToolStripMenuItem");
+            this.publishCoursesToolStripMenuItem.Click += new System.EventHandler(this.publishCourses_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -1757,10 +1766,11 @@ namespace PurplePen
             this.openToolStripButton,
             this.saveToolStripButton,
             this.toolStripSeparator2,
+            this.publishCoursesToolStripButton,
             this.undoToolStripButton,
             this.redoToolStripButton,
-            this.toolStripSeparator5,
             this.deleteToolStripButton,
+            this.toolStripSeparator5,
             this.toolStripSeparator17,
             this.addStartToolStripButton,
             this.addControlToolStripButton,
@@ -1797,6 +1807,13 @@ namespace PurplePen
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
+            // publishCoursesToolStripButton
+            // 
+            this.publishCoursesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.publishCoursesToolStripButton, "publishCoursesToolStripButton");
+            this.publishCoursesToolStripButton.Name = "publishCoursesToolStripButton";
+            this.publishCoursesToolStripButton.Click += new System.EventHandler(this.publishCourses_Click);
+            // 
             // undoToolStripButton
             // 
             this.undoToolStripButton.AutoToolTip = false;
@@ -1813,17 +1830,17 @@ namespace PurplePen
             this.redoToolStripButton.Name = "redoToolStripButton";
             this.redoToolStripButton.Click += new System.EventHandler(this.redoMenu_Click);
             // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
-            // 
             // deleteToolStripButton
             // 
             this.deleteToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             resources.ApplyResources(this.deleteToolStripButton, "deleteToolStripButton");
             this.deleteToolStripButton.Name = "deleteToolStripButton";
             this.deleteToolStripButton.Click += new System.EventHandler(this.deleteMenu_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
             // 
             // toolStripSeparator17
             // 
@@ -2396,5 +2413,7 @@ namespace PurplePen
         private System.Windows.Forms.ToolStripMenuItem constructionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addConstructionMenu;
         private System.Windows.Forms.ToolStripMenuItem splitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton publishCoursesToolStripButton;
+        private System.Windows.Forms.ToolStripMenuItem publishCoursesToolStripMenuItem;
     }
 }
