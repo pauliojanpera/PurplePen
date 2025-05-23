@@ -628,4 +628,10 @@ Paina OK ja yritä etsiä karttatiedoston kopio tietokoneeltasi.</value>
   <data name="GhostscriptNotInstalled" xml:space="preserve">
     <value>GPL Ghostscriptiä ei ole asennettu</value>
   </data>
+  <data name="PublishFailed" xml:space="preserve">
+    <value>Julkaisu epäonnistui: {0}</value>
+  </data>
+  <data name="PublishSucceeded" xml:space="preserve">
+    <value>Julkaisu onnistui.</value>
+  </data>
 </root>

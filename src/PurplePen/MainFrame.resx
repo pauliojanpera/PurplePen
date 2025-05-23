@@ -855,6 +855,12 @@
   <data name="createKMLFileMenu.Text" xml:space="preserve">
     <value>Create &amp;KML File...</value>
   </data>
+  <data name="publishCoursesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>287, 22</value>
+  </data>
+  <data name="publishCoursesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Publish courses...</value>
+  </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>284, 6</value>
   </data>
@@ -1859,6 +1865,23 @@
   <data name="saveToolStripButton.ToolTipText" xml:space="preserve">
     <value>Save (Ctrl+S)</value>
   </data>
+  <data name="publishCoursesToolStripButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wgAADsIBFShKgAAAAIdJREFUOE+VjtENwCAIRLu5c/S3W3UD0yVsoEJPRMVLLhA4nh7HlYvn834aexm2
+        N9SjqinEDvDQyoVII6+sAJrxAF2oys64IgCXEWkeAXVHon5m1gow0haAKpoktQcAREOOeKd5AZhfYEWT
+        uOoxAlJKbAkN9OcCAOmb2Q7AUxgw9BIQ9XeXywuJ7aw2owJg9QAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="publishCoursesToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Transparent</value>
+  </data>
+  <data name="publishCoursesToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="publishCoursesToolStripButton.Text" xml:space="preserve">
+    <value>Publish courses...</value>
+  </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>6, 25</value>
   </data>
@@ -2786,6 +2809,12 @@
     <value>createKMLFileMenu</value>
   </data>
   <data name="&gt;&gt;createKMLFileMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;publishCoursesToolStripMenuItem.Name" xml:space="preserve">
+    <value>publishCoursesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;publishCoursesToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
